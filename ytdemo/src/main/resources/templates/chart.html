@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        window.onload = function() {
+            // Initialize chart data points
+            var chartDataPoints = [];
+
+            // Create chart configuration
+            var chartConfig = {
+                exportEnabled: true,
+                animationEnabled: true,
+                theme: "light2", // "light1", "dark1", "dark2"
+                title: {
+                    text: "Build Percentage in the Last 4 Hours"
+                },
+                subtitles: [{
+                    text: "Build Percentage"
+                }],
+                data: [{
+                    type: "pie",
+                    yValueFormatString: "#,##0\"%\"",
+                    indexLabel: "{label} - {y}",
+                    dataPoints: chartDataPoints
+                }]
+            };
+
+            // Create chart
+            var chart = new CanvasJS.Chart("chartContainer", chartConfig);
+
+            // Populate chart data points
+            [[${dataPointsList}]].forEach(function(dataPoint) {
+                var dataPointJson = JSON.stringify(dataPoint);
+                console.log('Data Point:' + dataPointJson);
+                var parsedDataPoint = JSON.parse(dataPointJson);
+                var value = parsedDataPoint.y;
+                var label = parsedDataPoint.label;
+                console.log(parsedDataPoint.y);
+                console.log(parsedDataPoint.label);
+                chartDataPoints.push({
+                    label: label,
+                    y: value,
+                });
+                console.log('Chart Data Points: ' + chartDataPoints);
+            });
+
+            // Render chart
+            chart.render();
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<p>Click on the download button for exporting data into the excel file.</p>
+<a href="http://localhost:8080/export-to-excel" class="btn btn-primary">Download the Excel File</a>
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+</body>
+</html>
