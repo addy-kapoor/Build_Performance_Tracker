@@ -9,3 +9,5 @@ Key Features:
 - Displays a pie chart depicting the distribution of failed and successful builds with percentages above and below 95%.
 
 This tool helps teams quickly identify and address builds that do not meet performance standards, aiding in maintaining optimal software quality.
+
+[build](https://github.com/user-attachments/assets/798210a5-66f0-4376-b2c2-8d3c163fbc9a)
